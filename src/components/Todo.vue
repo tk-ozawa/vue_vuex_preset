@@ -15,6 +15,13 @@
         <tr></tr>
       </tbody>
     </table>
+
+    <h2>Add Todo</h2>
+    <form action="add-form" @submit.prevent>
+      subject
+      <input type="text" ref="subject" />
+      <button type="submit"></button>
+    </form>
   </div>
 </template>
 
