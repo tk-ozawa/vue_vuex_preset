@@ -2,6 +2,13 @@
   <div>
     <h1>チュートリアルTodoリスト</h1>
 
+    <h2>Add Todo</h2>
+    <form action="add-form" @submit.prevent="todoAdd">
+      subject
+      <input type="text" ref="subject" />
+      <button type="submit"></button>
+    </form>
+
     <table>
       <thead v-pre>
         <tr>
@@ -18,19 +25,12 @@
           <td class="state">
             <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
           </td>
-          <td class="button">
+          <td class="button delete">
             <button @click="doRemove(item)">削除</button>
           </td>
         </tr>
       </tbody>
     </table>
-
-    <h2>Add Todo</h2>
-    <form action="add-form" @submit.prevent="todoAdd">
-      subject
-      <input type="text" ref="subject" />
-      <button type="submit"></button>
-    </form>
   </div>
 </template>
 
@@ -51,6 +51,7 @@ export default {
     }
   },
   methods: {
+    // todo追加
     todoAdd: function (event, value) {
       const subject = this.$refs.subject
 
@@ -68,15 +69,20 @@ export default {
       // テキストボックスをリセット
       subject.value = ''
     },
+
+    // 状態変更
     doChangeState: item => {
       item.state = !item.state ? 1 : 0
     },
+
+    // todo削除
     doRemove: function (item) {
       const index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
     }
   },
   computed: {
+    // 状態のラベル付与
     labels () {
       return this.options.reduce((accumulator, currentVal) => {
         return Object.assign(accumulator, {
