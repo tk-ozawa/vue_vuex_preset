@@ -17,7 +17,7 @@
     </table>
 
     <h2>Add Todo</h2>
-    <form action="add-form" @submit.prevent>
+    <form action="add-form" @submit.prevent="todoAdd">
       subject
       <input type="text" ref="subject" />
       <button type="submit"></button>
@@ -31,6 +31,16 @@ export default {
   data () {
     return {
       todos: []
+    }
+  },
+  methods: {
+    todoAdd: function (event, value) {
+      const subject = this.$refs.subject
+
+      // 空文字は受け付けない
+      if (!subject.value.length) {
+        return true
+      }
     }
   }
 }
