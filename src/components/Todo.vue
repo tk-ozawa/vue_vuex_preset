@@ -16,7 +16,7 @@
           <th>{{ item.id }}</th>
           <td>{{ item.subject }}</td>
           <td class="state">
-            <button>{{ labels[item.state] }}</button>
+            <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
           </td>
           <td class="button">
             <button>削除</button>
@@ -67,6 +67,9 @@ export default {
 
       // テキストボックスをリセット
       subject.value = ''
+    },
+    doChangeState: item => {
+      item.state = !item.state ? 1 : 0
     }
   },
   computed: {
