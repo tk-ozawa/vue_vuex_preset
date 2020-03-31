@@ -16,7 +16,7 @@
           <th>{{ item.id }}</th>
           <td>{{ item.subject }}</td>
           <td class="state">
-            <button>{{ item.state }}</button>
+            <button>{{ labels[item.state] }}</button>
           </td>
           <td class="button">
             <button>削除</button>
@@ -42,7 +42,12 @@ export default {
       // { id, subject, state }
       // ex) state = 0 -> todo, = 1 -> done
       todos: [],
-      id: 0
+      id: 0,
+      options: [
+        { value: -1, label: 'すべて' },
+        { value: 0, label: '作業中' },
+        { value: 1, label: '完了' }
+      ]
     }
   },
   methods: {
@@ -62,6 +67,17 @@ export default {
 
       // テキストボックスをリセット
       subject.value = ''
+    }
+  },
+  computed: {
+    labels () {
+      return this.options.reduce((accumulator, currentVal) => {
+        return Object.assign(accumulator, {
+          [currentVal.value]: currentVal.label
+        })
+      }, {})
+      // キーから見つけやすいように以下のように加工したデータを作成
+      // { 0: '作業中', 1: '完了', -1: 'すべて'}
     }
   }
 }
