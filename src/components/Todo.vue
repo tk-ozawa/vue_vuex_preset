@@ -12,7 +12,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr></tr>
+        <tr v-for="item in todos" :key="item.id" :class="{ done: item.state }">
+          <th>{{ item.id }}</th>
+          <td>{{ item.subject }}</td>
+          <td class="state">
+            <button>{{ item.state }}</button>
+          </td>
+          <td class="button">
+            <button>削除</button>
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -31,8 +40,7 @@ export default {
   data () {
     return {
       // { id, subject, state }
-      // state = 0 -> todo
-      // state = 1 -> done
+      // ex) state = 0 -> todo, = 1 -> done
       todos: [],
       id: 0
     }
