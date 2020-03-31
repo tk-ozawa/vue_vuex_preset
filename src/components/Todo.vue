@@ -30,7 +30,8 @@ export default {
   name: 'Todo',
   data () {
     return {
-      todos: []
+      todos: [],
+      id: 0
     }
   },
   methods: {
