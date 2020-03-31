@@ -53,9 +53,17 @@ tbody tr.done th {
   color: #bbb;
 }
 
+tbody tr.done td.state button {
+  background: limegreen;
+}
+
 tbody tr:hover td,
 tbody tr:hover th {
   background: #f4fbff;
+}
+
+.delete button {
+  background: orangered;
 }
 
 button {
