@@ -27,6 +27,11 @@
 
 <script>
 export default {
-  name: 'Todo'
+  name: 'Todo',
+  data () {
+    return {
+      todos: []
+    }
+  }
 }
 </script>
