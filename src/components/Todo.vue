@@ -51,6 +51,9 @@ export default {
         subject: subject.value,
         state: 0
       })
+
+      // テキストボックスをリセット
+      subject.value = ''
     }
   }
 }
