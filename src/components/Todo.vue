@@ -19,7 +19,7 @@
             <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
           </td>
           <td class="button">
-            <button>削除</button>
+            <button @click="doRemove(item)">削除</button>
           </td>
         </tr>
       </tbody>
@@ -70,6 +70,10 @@ export default {
     },
     doChangeState: item => {
       item.state = !item.state ? 1 : 0
+    },
+    doRemove: function (item) {
+      const index = this.todos.indexOf(item)
+      this.todos.splice(index, 1)
     }
   },
   computed: {
