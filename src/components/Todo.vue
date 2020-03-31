@@ -30,6 +30,9 @@ export default {
   name: 'Todo',
   data () {
     return {
+      // { id, subject, state }
+      // state = 0 -> todo
+      // state = 1 -> done
       todos: [],
       id: 0
     }
@@ -42,6 +45,12 @@ export default {
       if (!subject.value.length) {
         return true
       }
+
+      this.todos.push({
+        id: this.id++,
+        subject: subject.value,
+        state: 0
+      })
     }
   }
 }
