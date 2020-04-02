@@ -23,7 +23,14 @@
           <th>{{ item.id }}</th>
           <td>
             <p v-if="!item.edit" @click="clickSubject(item)">{{ item.subject }}</p>
-            <input v-else type="text" v-model="item.subject" :ref="item.id" />
+            <input
+              v-else
+              type="text"
+              v-model="item.subject"
+              :ref="item.id"
+              @keyup.enter="item.edit = false"
+              @blur="item.edit = false"
+            />
           </td>
           <td class="state">
             <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
