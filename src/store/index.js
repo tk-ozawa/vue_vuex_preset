@@ -15,7 +15,16 @@ export default new Vuex.Store({
     currentOptions: -1
   },
   getters: {
-
+    computedTodos: state => {
+      return state.todos.filter(item => {
+        // currentOptionが -1 なら絞り込まない
+        if (state.currentOption < 0) {
+          return true
+        }
+        // currentOptionと一致するstateを持つものだけに絞り込む
+        return state.currentOption === item.state
+      })
+    }
   },
   mutations: {
   },
