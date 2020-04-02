@@ -2,7 +2,6 @@
   <div>
     <h1>チュートリアルTodoリスト</h1>
 
-    <h2>Add Todo</h2>
     <form action="add-form" @submit.prevent="todoAdd">
       subject
       <input type="text" ref="subject" />
