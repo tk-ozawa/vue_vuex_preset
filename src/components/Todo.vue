@@ -2,12 +2,18 @@
   <div>
     <h1>チュートリアルTodoリスト</h1>
 
-    <h2>Add Todo</h2>
     <form action="add-form" @submit.prevent="todoAdd">
       subject
       <input type="text" ref="subject" />
       <button type="submit"></button>
     </form>
+
+    <label v-for="(option, index) in options" :key="index">
+      <input type="radio" v-model="currentOption" :value="option.value" />
+      {{ option.label }}
+    </label>
+
+    <p v-show="computedTodos.length">現在 {{ computedTodos.length }} 件を表示中</p>
 
     <table>
       <thead v-pre>
@@ -19,9 +25,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in todos" :key="item.id" :class="{ done: item.state }">
+        <tr v-for="item in computedTodos" :key="item.id" :class="{ done: item.state }">
           <th>{{ item.id }}</th>
-          <td>{{ item.subject }}</td>
+          <td>
+            <p v-if="!item.edit" @click="clickSubject(item)">{{ item.subject }}</p>
+            <input
+              v-else
+              type="text"
+              v-model="item.subject"
+              :ref="item.id"
+              @keyup.enter="doChangeSubject(item)"
+              @blur="doChangeSubject(item)"
+            />
+          </td>
           <td class="state">
             <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
           </td>
@@ -47,7 +63,8 @@ export default {
         { value: -1, label: 'すべて' },
         { value: 0, label: '作業中' },
         { value: 1, label: '完了' }
-      ]
+      ],
+      currentOption: -1
     }
   },
   methods: {
@@ -79,6 +96,30 @@ export default {
     doRemove: function (item) {
       const index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
+    },
+
+    // subject欄の text -> input-text 切り替え
+    clickSubject: function (item) {
+      // 完了状態の時、編集不可
+      if (item.state === 1) {
+        return true
+      }
+
+      item.edit = true
+
+      // DOM生成された後にfocusされるようにする
+      this.$nextTick(() => {
+        this.$refs[item.id][0].focus()
+      })
+    },
+
+    doChangeSubject: item => {
+      // 空文字は受け付けない
+      if (!item.subject.length) {
+        return true
+      }
+
+      item.edit = false
     }
   },
   computed: {
@@ -91,6 +132,18 @@ export default {
       }, {})
       // キーから見つけやすいように以下のように加工したデータを作成
       // { 0: '作業中', 1: '完了', -1: 'すべて'}
+    },
+
+    computedTodos: function () {
+      return this.todos.filter(item => {
+        // currentOptionが -1 なら絞り込まない
+        if (this.currentOption < 0) {
+          return true
+        }
+
+        // currentOptionと一致するstateを持つものだけに絞り込む
+        return this.currentOption === item.state
+      })
     }
   }
 }
