@@ -9,6 +9,11 @@
       <button type="submit"></button>
     </form>
 
+    <label v-for="(option, index) in options" :key="index">
+      <input type="radio" v-model="currentOption" :value="option.value" />
+      {{ option.label }}
+    </label>
+
     <table>
       <thead v-pre>
         <tr>
@@ -57,7 +62,8 @@ export default {
         { value: -1, label: 'すべて' },
         { value: 0, label: '作業中' },
         { value: 1, label: '完了' }
-      ]
+      ],
+      currentOption: -1
     }
   },
   methods: {
