@@ -28,8 +28,8 @@
               type="text"
               v-model="item.subject"
               :ref="item.id"
-              @keyup.enter="item.edit = false"
-              @blur="item.edit = false"
+              @keyup.enter="doChangeSubject(item)"
+              @blur="doChangeSubject(item)"
             />
           </td>
           <td class="state">
@@ -100,6 +100,15 @@ export default {
       this.$nextTick(() => {
         this.$refs[item.id][0].focus()
       })
+    },
+
+    doChangeSubject: function (item) {
+      // 空文字は受け付けない
+      if (!item.subject.length) {
+        return true
+      }
+
+      item.edit = false
     }
   },
   computed: {
