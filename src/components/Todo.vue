@@ -21,7 +21,17 @@
       <tbody>
         <tr v-for="item in todos" :key="item.id" :class="{ done: item.state }">
           <th>{{ item.id }}</th>
-          <td>{{ item.subject }}</td>
+          <td>
+            <p v-if="!item.edit" @click="clickSubject(item)">{{ item.subject }}</p>
+            <input
+              v-else
+              type="text"
+              v-model="item.subject"
+              :ref="item.id"
+              @keyup.enter="item.edit = false"
+              @blur="item.edit = false"
+            />
+          </td>
           <td class="state">
             <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
           </td>
