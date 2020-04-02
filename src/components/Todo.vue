@@ -14,6 +14,8 @@
       {{ option.label }}
     </label>
 
+    <p v-show="computedTodos.length">現在 {{ computedTodos.length }} 件を表示中</p>
+
     <table>
       <thead v-pre>
         <tr>
