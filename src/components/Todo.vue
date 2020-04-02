@@ -13,7 +13,7 @@
       <thead v-pre>
         <tr>
           <th class="id">ID</th>
-          <th class="comment">コメント</th>
+          <th class="comment">内容</th>
           <th class="state">状態</th>
           <th class="button">-</th>
         </tr>
@@ -21,7 +21,10 @@
       <tbody>
         <tr v-for="item in todos" :key="item.id" :class="{ done: item.state }">
           <th>{{ item.id }}</th>
-          <td>{{ item.subject }}</td>
+          <td>
+            <p v-if="!item.edit" @click="clickSubject(item)">{{ item.subject }}</p>
+            <input v-else type="text" v-model="item.subject" :ref="item.id" />
+          </td>
           <td class="state">
             <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
           </td>
@@ -63,7 +66,8 @@ export default {
       this.todos.push({
         id: this.id++,
         subject: subject.value,
-        state: 0
+        state: 0,
+        edit: false
       })
 
       // テキストボックスをリセット
@@ -79,6 +83,15 @@ export default {
     doRemove: function (item) {
       const index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
+    },
+
+    // subject欄の text -> input-text 切り替え
+    clickSubject: function (item) {
+      item.edit = true
+
+      this.$nextTick(() => {
+        this.$refs[item.id][0].focus()
+      })
     }
   },
   computed: {
