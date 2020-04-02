@@ -27,6 +27,37 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    // todo追加
+    createTodo (state, newSubject) {
+      state.todos.push({
+        id: state.id++,
+        subject: newSubject,
+        status: 0,
+        edit: false
+      })
+    },
+
+    // Todo/Done切り替え
+    updateStatus (state, item) {
+      const index = state.todos.indexOf(item)
+      item.status = !item.status ? 1 : 0
+
+      state.todos.splice(index, 1, item)
+    },
+
+    // subject更新
+    updateSubject (state, item) {
+      const index = state.todos.indexOf(item)
+
+      state.todos.splice(index, 1, item)
+    },
+
+    // todo削除
+    deleteTodo (state, item) {
+      const index = state.todos.indexOf(item)
+
+      state.todos.splice(index, 1)
+    }
   },
   actions: {
   },
