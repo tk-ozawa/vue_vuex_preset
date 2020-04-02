@@ -94,6 +94,11 @@ export default {
 
     // subject欄の text -> input-text 切り替え
     clickSubject: function (item) {
+      // 完了状態の時、編集不可
+      if (item.state === 1) {
+        return true
+      }
+
       item.edit = true
 
       // DOM生成された後にfocusされるようにする
