@@ -89,6 +89,7 @@ export default {
     clickSubject: function (item) {
       item.edit = true
 
+      // DOM生成された後にfocusされるようにする
       this.$nextTick(() => {
         this.$refs[item.id][0].focus()
       })
