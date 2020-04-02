@@ -4,7 +4,7 @@
 
     <form action="add-form" @submit.prevent="todoAdd">
       subject
-      <input type="text" ref="subject" />
+      <input type="text" ref="subject" v-model="newSubject" />
       <button type="submit"></button>
     </form>
 
@@ -64,28 +64,27 @@ export default {
         { value: 0, label: '作業中' },
         { value: 1, label: '完了' }
       ],
-      currentOption: -1
+      currentOption: -1,
+      newSubject: ''
     }
   },
   methods: {
     // todo追加
-    todoAdd: function (event, value) {
-      const subject = this.$refs.subject
-
+    todoAdd: function () {
       // 空文字は受け付けない
-      if (!subject.value.length) {
+      if (!this.newSubject.length) {
         return true
       }
 
       this.todos.push({
         id: this.id++,
-        subject: subject.value,
+        subject: this.newSubject,
         status: 0,
         edit: false
       })
 
       // テキストボックスをリセット
-      subject.value = ''
+      this.newSubject = ''
     },
 
     // 状態変更
