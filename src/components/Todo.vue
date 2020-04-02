@@ -135,14 +135,14 @@ export default {
     },
 
     computedTodos: function () {
-      return this.todos.filter(element => {
+      return this.todos.filter(item => {
         // currentOptionが -1 なら絞り込まない
         if (this.currentOption < 0) {
           return true
         }
 
         // currentOptionと一致するstateを持つものだけに絞り込む
-        return this.currentOption === element.state
+        return this.currentOption === item.state
       })
     }
   }
