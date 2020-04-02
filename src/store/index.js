@@ -21,7 +21,7 @@ export default new Vuex.Store({
         if (state.currentOption < 0) {
           return true
         }
-        // currentOptionと一致するstateを持つものだけに絞り込む
+        // currentOptionと一致するstatusを持つものだけに絞り込む
         return state.currentOption === item.status
       })
     }
