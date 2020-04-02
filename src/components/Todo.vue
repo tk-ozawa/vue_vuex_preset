@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in todos" :key="item.id" :class="{ done: item.state }">
+        <tr v-for="item in computedTodos" :key="item.id" :class="{ done: item.state }">
           <th>{{ item.id }}</th>
           <td>
             <p v-if="!item.edit" @click="clickSubject(item)">{{ item.subject }}</p>
@@ -131,6 +131,18 @@ export default {
       }, {})
       // キーから見つけやすいように以下のように加工したデータを作成
       // { 0: '作業中', 1: '完了', -1: 'すべて'}
+    },
+
+    computedTodos: function () {
+      return this.todos.filter(element => {
+        // currentOptionが -1 なら絞り込まない
+        if (this.currentOption < 0) {
+          return true
+        }
+
+        // currentOptionと一致するstateを持つものだけに絞り込む
+        return this.currentOption === element.state
+      })
     }
   }
 }
