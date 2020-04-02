@@ -20,12 +20,12 @@
         <tr>
           <th class="id">ID</th>
           <th class="comment">内容</th>
-          <th class="state">状態</th>
+          <th class="status">状態</th>
           <th class="button">-</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in computedTodos" :key="item.id" :class="{ done: item.state }">
+        <tr v-for="item in computedTodos" :key="item.id" :class="{ done: item.status }">
           <th>{{ item.id }}</th>
           <td>
             <p v-if="!item.edit" @click="clickSubject(item)">{{ item.subject }}</p>
@@ -38,8 +38,8 @@
               @blur="doChangeSubject(item)"
             />
           </td>
-          <td class="state">
-            <button @click="doChangeState(item)">{{ labels[item.state] }}</button>
+          <td class="status">
+            <button @click="doChangeState(item)">{{ labels[item.status] }}</button>
           </td>
           <td class="button delete">
             <button @click="doRemove(item)">削除</button>
@@ -55,8 +55,8 @@ export default {
   name: 'Todo',
   data () {
     return {
-      // { id, subject, state }
-      // ex) state = 0 -> todo, = 1 -> done
+      // { id, subject, status }
+      // ex) status = 0 -> todo, = 1 -> done
       todos: [],
       id: 0,
       options: [
@@ -80,7 +80,7 @@ export default {
       this.todos.push({
         id: this.id++,
         subject: subject.value,
-        state: 0,
+        status: 0,
         edit: false
       })
 
@@ -90,7 +90,7 @@ export default {
 
     // 状態変更
     doChangeState: item => {
-      item.state = !item.state ? 1 : 0
+      item.status = !item.status ? 1 : 0
     },
 
     // todo削除
@@ -102,7 +102,7 @@ export default {
     // subject欄の text -> input-text 切り替え
     clickSubject: function (item) {
       // 完了状態の時、編集不可
-      if (item.state === 1) {
+      if (item.status === 1) {
         return true
       }
 
@@ -142,8 +142,8 @@ export default {
           return true
         }
 
-        // currentOptionと一致するstateを持つものだけに絞り込む
-        return this.currentOption === item.state
+        // currentOptionと一致するstatusを持つものだけに絞り込む
+        return this.currentOption === item.status
       })
     }
   }

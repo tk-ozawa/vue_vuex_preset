@@ -22,7 +22,7 @@ export default new Vuex.Store({
           return true
         }
         // currentOptionと一致するstateを持つものだけに絞り込む
-        return state.currentOption === item.state
+        return state.currentOption === item.status
       })
     }
   },
