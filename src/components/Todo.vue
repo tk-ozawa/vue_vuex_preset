@@ -102,7 +102,7 @@ export default {
       })
     },
 
-    doChangeSubject: function (item) {
+    doChangeSubject: item => {
       // 空文字は受け付けない
       if (!item.subject.length) {
         return true
