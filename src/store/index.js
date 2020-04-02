@@ -29,8 +29,10 @@ export default new Vuex.Store({
   mutations: {
     // todoの追加
     create (state, newSubject) {
+      state.actions.incrementId()
+
       state.todos.push({
-        id: state.id++,
+        id: state.id,
         subject: newSubject,
         status: 0,
         edit: false
@@ -45,6 +47,15 @@ export default new Vuex.Store({
     delete (state, item) {
       const index = state.todos.indexOf(item)
       state.todos.splice(index, 1)
+    },
+
+    // idの更新
+    updateId (state, id) {
+      state.id = id
+    },
+    // optionの更新
+    updateOption (state, option) {
+      state.currentOptions = option
     }
   },
   actions: {
@@ -64,6 +75,15 @@ export default new Vuex.Store({
     // todoの削除
     delete ({ commit }, item) {
       commit('delete', item)
+    },
+
+    // id更新
+    incrementId ({ commit }) {
+      commit('updateId', this.state.id + 1)
+    },
+    // option変更
+    updateOption ({ commit }, option) {
+      commit('updateOption', option)
     }
   },
   modules: {
